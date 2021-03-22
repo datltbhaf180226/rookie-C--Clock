@@ -1,0 +1,182 @@
+using System;
+using System.Collections.Generic;
+
+namespace C_1
+{
+
+    class Person
+    {
+        public string firstName { get; set; }
+        public string lastName { get; set; }
+        public string gender { get; set; }
+        public DateTime dob { get; set; }
+        public float phone { get; set; }
+        public string birdPlace { get; set; }
+        public int age { get; set; }
+        public bool isGraduated { get; set; }
+
+
+
+        // public void getListMal
+    }
+
+    class Member : Person
+    {
+        public DateTime startDate { get; set; }
+        public DateTime endDate { get; set; }
+
+    }
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            var s1 = new Member()
+            {
+                firstName = "Dat",
+                lastName = "Le",
+                gender = "Male",
+                dob = DateTime.Parse("07/07/2000"),
+                phone = 0981108941,
+                birdPlace = "Ha Noi",
+                age = 21,
+                isGraduated = false,
+                startDate = DateTime.Parse("15/03/2021"),
+                endDate = DateTime.Parse("15/06/2021")
+            };
+
+
+            var s2 = new Member()
+            {
+                firstName = "Huan",
+                lastName = "Bui",
+                gender = "Male",
+                dob = DateTime.Parse("01/01/2000"),
+                phone = 0123456789,
+                birdPlace = "Cao Bang",
+                age = 21,
+                isGraduated = false,
+                startDate = DateTime.Parse("15/03/2021"),
+                endDate = DateTime.Parse("15/06/2021")
+            };
+
+
+            var s3 = new Member()
+            {
+                firstName = "Thuy",
+                lastName = "Nguyen",
+                gender = "Female",
+                dob = DateTime.Parse("02/02/1987"),
+                phone = 0987654321,
+                birdPlace = "Ha Noi",
+                age = 23,
+                isGraduated = true,
+                startDate = DateTime.Parse("15/04/2021"),
+                endDate = DateTime.Parse("15/06/2021")
+            };
+
+
+            var s4 = new Member()
+            {
+                firstName = "Long",
+                lastName = "Nguyen",
+                gender = "Male",
+                dob = DateTime.Parse("01/01/1987"),
+                phone = 0981108941,
+                birdPlace = "Ha Noi",
+                age = 21,
+                isGraduated = true,
+                startDate = DateTime.Parse("15/05/2022"),
+                endDate = DateTime.Parse("15/06/2021")
+            };
+
+
+            var listMembers = new List<Member>() { s1, s2, s3, s4 };
+
+            // Bai 1
+            Console.WriteLine("Bai-1");
+            foreach (var member in listMembers)
+            {
+                if (member.gender == "Male")
+                {
+                    Console.WriteLine("List of members who is Male: " + member.firstName);
+                }
+            }
+            Console.WriteLine("------------------------------------------------------------");
+
+            //Bai2
+            Console.WriteLine("Bai-2");
+            long oldest = 0;
+            string oldestMember = "";
+            foreach (var member in listMembers)
+            {
+                long nowTimeStamp = DateTime.Now.ToFileTime();
+                long dobTimeStamp = member.dob.ToFileTime();
+                if (nowTimeStamp - dobTimeStamp < oldest)
+                {
+                    oldest = nowTimeStamp - dobTimeStamp;
+                }
+                oldestMember = member.firstName;
+
+            }
+            Console.WriteLine("The oldest members: " + oldestMember);
+            Console.WriteLine("------------------------------------------------------------");
+
+
+            //Bai3
+            Console.WriteLine("Bai-3");
+            foreach (var member in listMembers)
+            {
+                Console.WriteLine($"List full name of members: {member.firstName} {member.lastName}");
+            }
+            Console.WriteLine("------------------------------------------------------------");
+
+
+            //Bai4
+            Console.WriteLine("Bai-4");
+
+            foreach (var member in listMembers)
+            {
+                switch (member.dob.Year) 
+                {
+                    case int n when (n == 1998): 
+                    Console.WriteLine("List of members who has birth year is 1998: " + member.firstName);
+                    break;
+
+                    case int n when (n > 1998):
+                    Console.WriteLine("List of members who has birth year greater than 1998: " + member.firstName);
+                    break;
+
+                    case int n when (n < 1998):
+                    Console.WriteLine("List of members who has birth year less than 1998: " + member.firstName);
+                    break;
+
+                }
+            }
+            Console.WriteLine("------------------------------------------------------------");
+
+
+            //Bai5
+
+            int i = 0;
+            while (listMembers[i].birdPlace == "Ha Noi") {
+                Console.WriteLine("The first person who was born in Ha Noi: " + listMembers[i].firstName);
+                i++;
+            }
+            Console.WriteLine("------------------------------------------------------------");
+
+
+            //Bai6
+            Console.WriteLine("Bai-6");
+            foreach (var member in listMembers)
+            {
+                long inputDateTimestamp = DateTime.Parse("22/03/2021").ToFileTime();
+                long startDateTimestamp = member.startDate.ToFileTime();
+                if (inputDateTimestamp - startDateTimestamp > 0)
+                {
+                    Console.WriteLine("List of members who join class before 22/03/2021: " + member.firstName);
+                }
+            }
+            Console.WriteLine("------------------------------------------------------------");
+        }
+    }
+}
